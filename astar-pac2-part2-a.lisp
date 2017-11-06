@@ -210,18 +210,19 @@
 ;G 50
 ;H 50
 ;Z 0
-(defun heuristica (estat)
-  "Retornar el valor definit a la taula superior."
-  (case estat
-    ("A" 80)
-    ("B" 90)
-    ("C" 60)
-    ("D" 65)
-    ("E" 70)
-    ("F" 50)
-    ("G" 50)
-    ("H" 50)
-    ("Z" 0)))
+(defun heuristica (x)
+  "Retornar el valor definit a la taula superior depenen de l'entrada."
+  (cond
+    ((equal x "A") 80)
+    ((equal x "B") 90)
+    ((equal x "C") 60)
+    ((equal x "D") 65)
+    ((equal x "E") 70)
+    ((equal x "F") 50)
+    ((equal x "G") 50)
+    ((equal x "H") 50)
+    ((equal x "Z") 0)
+    (t 1000)))
 
 ;;;;;;;;; Funció de cost -- apartat 2-b PAC2 2017-18-Q1
 
