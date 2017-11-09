@@ -125,7 +125,7 @@
 (defun expandeix-arbre (problema estrategia arbre node)
   (let ((nous-nodes-a-expandir (expandeix-node node
                                                (operadors problema)
-                                               (funcio-info-addicional problema))))
+                                               (funcio-info-addicional problema)) ))
     (construeix-arbre arbre estrategia node nous-nodes-a-expandir)))
 
 (defun elimina-seleccio (arbre)
@@ -201,15 +201,7 @@
         (list 'HtoZ #'Htoz)))
 
 ;;;;;;;;; Funció heurística -- apartat 2-a PAC2 2017-18-Q1
-;A 80
-;B 90
-;C 60
-;D 65
-;E 70
-;F 50
-;G 50
-;H 50
-;Z 0
+
 (defun heuristica (x)
   "Retornar el valor definit a la taula superior depenen de l'entrada."
   (cond
@@ -222,26 +214,27 @@
     ((equal x 'G) 50)
     ((equal x 'H) 50)
     ((equal x 'Z) 0)
-    (t nil)))
+    (t 1000)))
 
 ;;;;;;;;; Funció de cost -- apartat 2-b PAC2 2017-18-Q1
 
-(setq map '((A B 4) (A C 10) (A D 10) (A E 15)
+(setq mapvector '((A B 4) (A C 10) (A D 10) (A E 15)
             (B F 5) (C F 20) (D F 10) (E F 3) (E H 30)
             (F G 35) (F H 30)
             (H Z 2)))
 
 (defun cost (estat1 estat2)
   "Retorna el cost entre dos estats que estiguin connectats en el graf de la part 1"
-  (cerca estat1 estat2 map))
+  (cerca-vector estat1 estat2 mapvector))
 
-(defun cerca (estat1 estat2 mapa)
-  (if (null mapa) nil
+(defun cerca-vector (estat1 estat2 mapa)
+  (if (null mapa) 1000
     (if (and
          (equal (caar mapa) estat1)
          (equal (cadar mapa) estat2))
       (caddar mapa)
-      (cerca estat1 estat2 (cdr mapa)))))
+      (cerca-vector estat1 estat2 (cdr mapa)))))
+
 
 ;;;;;;;;; ALgorismes generals cerca A*
 
@@ -261,7 +254,7 @@
                     (+ (+ g (cost estat-pare estat)) (heuristica estat)))))
         'A
         #'(lambda (estat) (equal estat 'Z))
-        #'(lambda (estat) (list 0 (heuristica estat)))))
+        #'(lambda (estat) (list 0 (heuristica estat))) ))
 
 (defun cerca-A* (problema)
   (fer-cerca problema #'tl-estrategia-A*))

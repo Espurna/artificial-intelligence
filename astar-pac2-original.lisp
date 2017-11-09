@@ -16,20 +16,20 @@
         (cons (car elems)
               (selecciona-menorigual pivot (cdr per-ordenar)
                                      (cdr elems)))
-      (selecciona-menorigual pivot (cdr per-ordenar) (cdr elems)))))
+      (selecciona-menorigual pivot (cdr per-ordenar) (cdr elems))))) 
 
 (defun selecciona-major (pivot per-ordenar elems)
   (if (null per-ordenar) nil
     (if (> (car per-ordenar) pivot)
         (cons (car elems)
               (selecciona-major pivot (cdr per-ordenar)
-                                (cdr elems)))
+                                (cdr elems))) 
       (selecciona-major pivot (cdr per-ordenar) (cdr elems)))))
 
 (defun quicksort (per-ordenar elems)
   (if (null elems) nil
     (let* ((pivot (car per-ordenar)) (elemp (car elems))
-           (petits (selecciona-menorigual pivot (cdr per-ordenar) (cdr elems)))
+           (petits (selecciona-menorigual pivot (cdr per-ordenar) (cdr elems))) 
            (grans (selecciona-major pivot (cdr per-ordenar) (cdr elems)))
            (resultat  (append (quicksort
                                (selecciona-estimacio petits)
@@ -52,7 +52,7 @@
 
 (defun info (node) (cddddr node))
 
-(defun construeix-node (id estat id-pare op info)
+(defun construeix-node (id estat id-pare op info) 
   (append (list id estat id-pare op) info))
 
 (defun expandeix-node (node operadors funcio)
@@ -112,9 +112,9 @@
 
 (defun node-arbre (id-node arbre)
   (let ((a-expandir? (member-if #'(lambda (node) (equal (id node) id-node)) (nodes-a-expandir arbre))))
-    (if a-expandir?
+    (if a-expandir? 
         (find-if #'(lambda (node) (equal (id node) id-node))
-                 (nodes-a-expandir arbre))
+                 (nodes-a-expandir arbre)) 
       (find-if #'(lambda (node) (equal (id node) id-node))
                (nodes-expandits arbre)))))
 
@@ -125,7 +125,7 @@
 (defun expandeix-arbre (problema estrategia arbre node)
   (let ((nous-nodes-a-expandir (expandeix-node node
                                                (operadors problema)
-                                               (funcio-info-addicional problema))))
+                                               (funcio-info-addicional problema)) ))
     (construeix-arbre arbre estrategia node nous-nodes-a-expandir)))
 
 (defun elimina-seleccio (arbre)
@@ -191,7 +191,7 @@
         (list 'AtoC #'AtoC)
         (list 'AtoD #'AtoD)
         (list 'AtoE #'AtoE)
-        (list 'BtoF #'BtoF)
+        (list 'BtoF #'BtoF)        
         (list 'CtoF #'CtoF)
         (list 'DtoF #'DtoF)
         (list 'EtoF #'EtoF)
@@ -202,20 +202,20 @@
 
 ;;;;;;;;; Funció heurística -- apartat 2-a PAC2 2017-18-Q1
 
-(defun heuristica (estat))
+(defun heuristica (estat)
 
-
+)
 
 ;;;;;;;;; Funció de cost -- apartat 2-b PAC2 2017-18-Q1
 
-(defun cost (estat1 estat2))
+(defun cost (estat1 estat2)
 
-
+)
 
 
 ;;;;;;;;; ALgorismes generals cerca A*
 
-(defun tl-estrategia-A* (nodes-a-expandir nous-nodes-a-expandir)
+(defun tl-estrategia-A* (nodes-a-expandir nous-nodes-a-expandir) 
   (let ((unio-nodes (append nous-nodes-a-expandir
                             nodes-a-expandir)))
     (quicksort (selecciona-estimacio unio-nodes)
@@ -231,7 +231,9 @@
                     (+ (+ g (cost estat-pare estat)) (heuristica estat)))))
         'A
         #'(lambda (estat) (equal estat 'Z))
-        #'(lambda (estat) (list 0 (heuristica estat)))))
+        #'(lambda (estat) (list 0 (heuristica estat))) ))
 
 (defun cerca-A* (problema)
   (fer-cerca problema #'tl-estrategia-A*))
+
+
